@@ -26,7 +26,7 @@ public class enterTask extends AppCompatActivity {
         EditText task_name = (EditText) findViewById(R.id.task_name);
         String task_name_value = task_name.getText().toString();
         task_name.setText(task_name_value);
-        setTaskName(this, task_name_value);
+
 
 /*        TextView display_task_name = new TextView(R.id.display_task_name);
         display_task_name.setText(R.id.task_name);*/
@@ -35,6 +35,9 @@ public class enterTask extends AppCompatActivity {
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //EditText task_name = (EditText) findViewById(R.id.task_name);
+                //String task_name_value = task_name.getText().toString();
+                //setTaskName(getApplicationContext(), task_name_value);
                 backToHome();
             }
         });
@@ -44,15 +47,18 @@ public class enterTask extends AppCompatActivity {
         SharedPreferences prefs = context.getSharedPreferences("myAppPackage", 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("task_name", name_of_task);
-        editor.commit();
+        editor.apply();
     }
 
     public void backToHome() {
-        Intent intent = new Intent(this, MainActivity.class);
+        //Intent intent = new Intent(this, MainActivity.class);
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
+        SharedPreferences.Editor editor = prefs.edit();
 
         EditText task_name = (EditText) findViewById(R.id.task_name);
         String task_name_value = task_name.getText().toString();
-        intent.putExtra("task_name", task_name_value);
+        //intent.putExtra("task_name", task_name_value);
+        editor.putString("task_name", task_name_value);
 
         EditText estimated_task_length = (EditText) findViewById(R.id.estimated_task_length);
         String estimated_task_length_value = estimated_task_length.getText().toString();
@@ -62,9 +68,11 @@ public class enterTask extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }*/
-        intent.putExtra("estimated_task_length", estimated_task_length_value);
+        editor.putString("estimated_task_length", estimated_task_length_value);
+        editor.apply();
 
-        startActivity(intent);
+        finish();
+
     }
 
     @Override

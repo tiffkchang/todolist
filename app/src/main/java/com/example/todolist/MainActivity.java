@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         items_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
         todo_list.setAdapter(items_adapter);
-//        items.add(main_intent.getStringExtra("task_name"));
-//        items.add(main_intent.getStringExtra("estimated_task_length"));
+
+
 
         TextView display_task_name = findViewById(R.id.display_task_name);
         TextView display_estimated_task_length = findViewById(R.id.display_estimated_task_length);
@@ -83,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int rq, int rc, Intent data) {
+        System.out.print("HERE");
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
+
+        String task_name = prefs.getString("task_name", "no name");
+        String estimated_task_length = prefs.getString("estimated_task_length", "no length");
+
+        Log.d("RESULT","TASK NAME: " + task_name);
+
+        if (task_name != null) {
+            items_adapter.add(task_name);
+        }
+        if (estimated_task_length!= null) {
+            items_adapter.add(estimated_task_length);
+        }
+    }
+
     public static String getTaskName(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("myAppPackage", 0);
         return prefs.getString("task_name", "");
@@ -92,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
     public void enterTask() {
         Intent intent = new Intent(this, enterTask.class);
 
-        startActivity(intent);
+        Log.d("START", "START ACTIVITY");
+        startActivityForResult(intent, 0);
     }
 
 
