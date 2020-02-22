@@ -47,14 +47,14 @@
         android:scaleX="0.75"
         android:scaleY="0.75"/>-->
 
-    <TimePicker
-        android:id="@+id/deadline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="150dp"
-        android:timePickerMode="spinner" />
+<!--    <TimePicker-->
+<!--        android:id="@+id/deadline"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginTop="150dp"-->
+<!--        android:timePickerMode="spinner" />-->
 
     <Button
         android:id="@+id/back_to_home"

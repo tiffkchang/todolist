@@ -18,10 +18,15 @@ import android.view.MenuItem;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private ListView todo_list;
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         items = new ArrayList<String>();
         items_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
-        todo_list.setAdapter(items_adapter);
+//        todo_list.setAdapter(items_adapter);
 
 
 
@@ -94,12 +99,25 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("RESULT","TASK NAME: " + task_name);
 
-        if (task_name != null) {
-            items_adapter.add(task_name);
+
+        List<HashMap<String, String>> listItems = new ArrayList<>();
+        SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item, new String[] {"First line", "Second line"}, new int[] {R.id.text1, R.id.text2});
+
+
+        if (task_name != null && estimated_task_length != null) {
+            HashMap<String, String> resultsMap = new HashMap<>();
+            resultsMap.put("First line", task_name);
+            resultsMap.put("Second line", estimated_task_length);
+            listItems.add(resultsMap);
         }
-        if (estimated_task_length!= null) {
-            items_adapter.add(estimated_task_length);
-        }
+        todo_list.setAdapter(adapter);
+
+//        if (task_name != null) {
+//            items_adapter.add(task_name);
+//        }
+//        if (estimated_task_length!= null) {
+//            items_adapter.add(estimated_task_length);
+//        }
     }
 
     public static String getTaskName(Context context) {
