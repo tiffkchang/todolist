@@ -1,22 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
 
-    <TextView
-        android:id="@+id/text1"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="30dp"
-        android:textColor="@color/CadetBlue"
-        />
+        android:layout_height="wrap_content"
+        android:layout_weight="10">
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:textSize="30sp"
+            android:textColor="@color/CadetBlue"
+            android:layout_weight="50"
+            android:text="text1"
+            />
 
-    <TextView
-        android:id="@+id/text2"
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:textSize="22sp"
+            android:textColor="@color/AntiqueWhite"
+            android:layout_weight="50"
+            android:text="text2"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="22dp"
-        android:textColor="@color/AntiqueWhite"
-        />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="90">
+        <CheckBox
+            android:id="@+id/completed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

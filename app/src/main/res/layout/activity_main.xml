@@ -36,31 +36,36 @@
 
     <ListView
         android:id="@+id/todo_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="64dp" />
+        android:layout_marginTop="64dp"
+        android:scrollbarSize="3dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        android:scrollingCache="true"
+        android:smoothScrollbar="true"/>
 
-    <TextView
-        android:id="@+id/display_task_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="50dp"
-        android:textSize="50dp"
-        android:text="testing" />
+<!--    <TextView-->
+<!--        android:id="@+id/display_task_name"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:textSize="50dp"-->
+<!--        android:text="testing" />-->
 
-    <TextView
-        android:id="@+id/display_estimated_task_length"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="100dp"
-        android:textSize="50dp"
-        android:text="testing2" />
+<!--    <TextView-->
+<!--        android:id="@+id/display_estimated_task_length"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:textSize="50dp"-->
+<!--        android:text="testing2" />-->
 
 </RelativeLayout>

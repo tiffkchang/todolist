@@ -50,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        TextView display_task_name = findViewById(R.id.display_task_name);
-        TextView display_estimated_task_length = findViewById(R.id.display_estimated_task_length);
+//        TextView display_task_name = findViewById(R.id.display_task_name);
+//        TextView display_estimated_task_length = findViewById(R.id.display_estimated_task_length);
 //        display_task_name.setText(getTaskName(this));
-
-        display_task_name.setText(main_intent.getStringExtra("task_name"));
-        display_estimated_task_length.setText(main_intent.getStringExtra("estimated_task_length"));
+//
+//        display_task_name.setText(main_intent.getStringExtra("task_name"));
+//        display_estimated_task_length.setText(main_intent.getStringExtra("estimated_task_length"));
 
         FloatingActionButton add_task = findViewById(R.id.new_task);
         add_task.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         String estimated_task_length = prefs.getString("estimated_task_length", "no length");
 
         Log.d("RESULT","TASK NAME: " + task_name);
-
 
         List<HashMap<String, String>> listItems = new ArrayList<>();
         SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item, new String[] {"First line", "Second line"}, new int[] {R.id.text1, R.id.text2});
