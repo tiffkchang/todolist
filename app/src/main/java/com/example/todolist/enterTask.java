@@ -60,15 +60,18 @@ public class enterTask extends AppCompatActivity {
         //intent.putExtra("task_name", task_name_value);
         editor.putString("task_name", task_name_value);
 
-        EditText estimated_task_length = (EditText) findViewById(R.id.estimated_task_length);
-        String estimated_task_length_value = estimated_task_length.getText().toString();
+        EditText estimated_hours = (EditText) findViewById(R.id.estimated_hours);
+        EditText estimated_minutes = (EditText) findViewById(R.id.estimated_minutes);
+        String estimated_hours_value = estimated_hours.getText().toString();
+        String estimated_minutes_value = estimated_minutes.getText().toString();
 /*        DateFormat formatter = new SimpleDateFormat("hh:mm:ss a");
         try {
             Date date = formatter.parse(estimated_task_length_value);
         } catch (ParseException e) {
             e.printStackTrace();
         }*/
-        editor.putInt("estimated_task_length", Integer.parseInt(estimated_task_length_value));
+        editor.putInt("estimated_hours", Integer.parseInt(estimated_hours_value));
+        editor.putInt("estimated_minutes", Integer.parseInt(estimated_minutes_value));
         editor.apply();
 
         finish();

@@ -113,12 +113,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
 
         String task_name = prefs.getString("task_name", "no name");
-        int estimated_task_length = prefs.getInt("estimated_task_length", 0);
+        int estimated_hours = prefs.getInt("estimated_hours", 0);
+        int estimated_minutes = prefs.getInt("estimated_minutes", 0);
 
         Log.d("RESULT","TASK NAME: " + task_name);
 
 
-        tasks.add(new Task(task_name, estimated_task_length));
+        tasks.add(new Task(task_name, estimated_hours, estimated_minutes));
 
 
 //        List<HashMap<String, String>> listItems = new ArrayList<>();

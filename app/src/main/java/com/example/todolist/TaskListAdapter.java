@@ -29,9 +29,8 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String taskName = getItem(position).getTaskName();
-        int estimatedTaskLength = getItem(position).getEstimatedTaskLength();
-
-        Task task = new Task(taskName, estimatedTaskLength);
+        int estimatedHours = getItem(position).getEstimatedHours();
+        int estimatedMinutes = getItem(position).getEstimatedMinutes();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -40,8 +39,10 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         TextView eTaskLength = (TextView) convertView.findViewById(R.id.text2);
         CheckBox completed = (CheckBox) convertView.findViewById(R.id.completed);
 
+        String eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minutes";
+
         tName.setText(taskName);
-        eTaskLength.setText(Integer.toString(estimatedTaskLength));
+        eTaskLength.setText(eTaskLengthString);
         completed.setActivated(false);
 
         return convertView;

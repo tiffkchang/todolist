@@ -2,13 +2,17 @@ package com.example.todolist;
 
 public class Task {
     private String taskName;
-    private int estimatedTaskLength; //in seconds
+//    private int estimatedTaskLength; //in seconds
+    private int estimatedHours = 0;
+    private int estimatedMinutes = 0;
     private int actualTaskLength = 0; //in seconds
     private boolean completed = false;
 
-    public Task(String taskName, int estimatedTaskLength) {
+    public Task(String taskName, int estimatedHours, int estimatedMinutes) {
         this.taskName = taskName;
-        this.estimatedTaskLength = estimatedTaskLength;
+        this.estimatedHours = estimatedHours;
+        this.estimatedMinutes = estimatedMinutes;
+
     }
 
     public String getTaskName() {
@@ -20,11 +24,16 @@ public class Task {
     }
 
     public int getEstimatedTaskLength() {
-        return estimatedTaskLength;
+        int estimatedTaskLength = ((estimatedHours * 60 * 60) + (estimatedMinutes * 60));
+        return estimatedTaskLength; //this is in seconds
     }
 
-    public void setEstimatedTaskLength(int estimatedTaskLength) {
-        this.estimatedTaskLength = estimatedTaskLength;
+    public int getEstimatedHours() {
+        return estimatedHours;
+    }
+
+    public int getEstimatedMinutes() {
+        return estimatedMinutes;
     }
 
     public int getActualTaskLength() {
@@ -43,3 +52,4 @@ public class Task {
         this.completed = completed;
     }
 }
+
