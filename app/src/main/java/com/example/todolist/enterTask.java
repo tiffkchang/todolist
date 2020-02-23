@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -70,8 +71,15 @@ public class enterTask extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }*/
+
+        int estimated_minutes_checked = Integer.parseInt(estimated_minutes_value);
+        if (estimated_minutes_checked > 59) {
+            Toast.makeText(this, "60 minutes is an hour stupid", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         editor.putInt("estimated_hours", Integer.parseInt(estimated_hours_value));
-        editor.putInt("estimated_minutes", Integer.parseInt(estimated_minutes_value));
+        editor.putInt("estimated_minutes", estimated_minutes_checked);
         editor.apply();
 
         finish();

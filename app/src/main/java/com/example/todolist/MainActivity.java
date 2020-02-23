@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.InputType;
 import android.util.Log;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView todo_list;
+    private RecyclerView todo_list;
     private ArrayList<String> items;
     private ArrayAdapter<String> items_adapter;
     private ArrayList<Task> tasks;
@@ -76,9 +77,11 @@ public class MainActivity extends AppCompatActivity {
                 enterTask();
             }
         });
+    }
 
+    private void setUpRecyclerView() {
         tasks = new ArrayList<>();
-        todo_list = (ListView) findViewById(R.id.todo_list);
+        todo_list = (RecyclerView) findViewById(R.id.todo_list);
 
         TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
         todo_list.setAdapter(adapt);

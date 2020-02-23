@@ -10,12 +10,41 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class TaskListAdapter extends ArrayAdapter<Task> {
+import com.daimajia.swipe.adapters.ArraySwipeAdapter;
+
+public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskListViewHolder> {
+    private ArrayList<Task> todo_list;
+
+    public static class TaskListViewHolder extends RecyclerView.ViewHolder {
+        public View view;
+        public TaskListViewHolder(View v) {
+            super(v);
+            view = v;
+        }
+    }
+
+    public TaskListAdapter(ArrayList<Task> todo_list) {
+        this.todo_list = todo_list;
+    }
+
+    public TaskListAdapter.TaskListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        String taskName = getItem(position).getTaskName();
+        int estimatedHours = getItem(position).getEstimatedHours();
+        int estimatedMinutes = getItem(position).getEstimatedMinutes();
+
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_item, parent, false);
+        TaskListViewHolder vh = new TaskListViewHolder(v);
+        return vh;
+    }
+
+    /*
     private Context mContext;
     private int mResource;
 
@@ -39,7 +68,13 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         TextView eTaskLength = (TextView) convertView.findViewById(R.id.text2);
         CheckBox completed = (CheckBox) convertView.findViewById(R.id.completed);
 
-        String eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minutes";
+        String eTaskLengthString = "";
+
+        if (estimatedHours == 1) {
+            eTaskLengthString = Integer.toString(estimatedHours) + " hour " + Integer.toString(estimatedMinutes) + " minutes";
+        } else {
+            eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minutes";
+        }
 
         tName.setText(taskName);
         eTaskLength.setText(eTaskLengthString);
@@ -48,4 +83,11 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         return convertView;
 
     }
+
+     */
+
+    public void deleteTask(int position) {
+
+    }
+
 }
