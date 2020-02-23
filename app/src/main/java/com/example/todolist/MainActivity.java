@@ -10,6 +10,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.InputType;
 import android.util.Log;
@@ -31,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView todo_list;
+    private RecyclerView todo_list;
     private ArrayList<String> items;
     private ArrayAdapter<String> items_adapter;
     private ArrayList<Task> tasks;
@@ -77,11 +80,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tasks = new ArrayList<>();
-        todo_list = (ListView) findViewById(R.id.todo_list);
+        setUpRecyclerView();
+    }
 
-        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
+    private void setUpRecyclerView() {
+        tasks = new ArrayList<>();
+        todo_list = (RecyclerView) findViewById(R.id.todo_list);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        todo_list.setLayoutManager(layoutManager);
+
+        TaskListAdapter adapt = new TaskListAdapter(this, tasks);
         todo_list.setAdapter(adapt);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapt));
+        itemTouchHelper.attachToRecyclerView(todo_list);
     }
 
     @Override

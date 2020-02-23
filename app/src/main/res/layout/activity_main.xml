@@ -34,7 +34,7 @@
         android:backgroundTint="@android:color/holo_blue_light"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/todo_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
