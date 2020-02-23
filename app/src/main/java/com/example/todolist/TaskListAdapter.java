@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import com.daimajia.swipe.adapters.ArraySwipeAdapter;
 
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskListViewHolder> {
+    private Context c;
     private ArrayList<Task> todo_list;
 
     public static class TaskListViewHolder extends RecyclerView.ViewHolder {
@@ -29,44 +30,30 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
         }
     }
 
-    public TaskListAdapter(ArrayList<Task> todo_list) {
+    public TaskListAdapter(Context c, ArrayList<Task> todo_list) {
+        this.c = c;
         this.todo_list = todo_list;
     }
 
-    public TaskListAdapter.TaskListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        String taskName = getItem(position).getTaskName();
-        int estimatedHours = getItem(position).getEstimatedHours();
-        int estimatedMinutes = getItem(position).getEstimatedMinutes();
+    public Context getContext() { return c; }
 
+    public TaskListAdapter.TaskListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
         TaskListViewHolder vh = new TaskListViewHolder(v);
         return vh;
     }
 
-    /*
-    private Context mContext;
-    private int mResource;
+    public Task getItem(int position) { return todo_list.get(position); }
 
-    public TaskListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Task> objects) {
-        super(context, resource, objects);
-        mContext = context;
-        mResource = resource;
-    }
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public void onBindViewHolder(TaskListViewHolder holder, int position) {
         String taskName = getItem(position).getTaskName();
         int estimatedHours = getItem(position).getEstimatedHours();
         int estimatedMinutes = getItem(position).getEstimatedMinutes();
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResource, parent, false);
-
-        TextView tName = (TextView) convertView.findViewById(R.id.text1);
-        TextView eTaskLength = (TextView) convertView.findViewById(R.id.text2);
-        CheckBox completed = (CheckBox) convertView.findViewById(R.id.completed);
+        TextView tName = (TextView) holder.view.findViewById(R.id.text1);
+        TextView eTaskLength = (TextView) holder.view.findViewById(R.id.text2);
+        CheckBox completed = (CheckBox) holder.view.findViewById(R.id.completed);
 
         String eTaskLengthString = "";
 
@@ -79,15 +66,13 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
         tName.setText(taskName);
         eTaskLength.setText(eTaskLengthString);
         completed.setActivated(false);
-
-        return convertView;
-
     }
 
-     */
+    public int getItemCount() { return todo_list.size(); }
 
     public void deleteTask(int position) {
-
+        todo_list.remove(position);
+        notifyItemRemoved(position);
     }
 
 }
