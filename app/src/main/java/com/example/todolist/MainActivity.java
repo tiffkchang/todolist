@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView todo_list;
     private ArrayList<String> items;
     private ArrayAdapter<String> items_adapter;
+    private ArrayList<Task> tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
                 enterTask();
             }
         });
+
+        tasks = new ArrayList<>();
+        todo_list = (ListView) findViewById(R.id.todo_list);
+
+        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
+        todo_list.setAdapter(adapt);
     }
 
     @Override
@@ -110,13 +117,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("RESULT","TASK NAME: " + task_name);
 
-        ArrayList<Task> tasks = new ArrayList<>();
+
         tasks.add(new Task(task_name, estimated_task_length));
 
-        todo_list = (ListView) findViewById(R.id.todo_list);
-
-        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
-        todo_list.setAdapter(adapt);
 
 //        List<HashMap<String, String>> listItems = new ArrayList<>();
 //        ArrayAdapter<HashMap<String, String>> adapter = new ArrayAdapter(this, R.layout.list_item, R.id.text1, listItems);

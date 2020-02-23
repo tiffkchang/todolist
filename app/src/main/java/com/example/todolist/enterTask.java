@@ -68,7 +68,7 @@ public class enterTask extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }*/
-        editor.putString("estimated_task_length", estimated_task_length_value);
+        editor.putInt("estimated_task_length", Integer.parseInt(estimated_task_length_value));
         editor.apply();
 
         finish();

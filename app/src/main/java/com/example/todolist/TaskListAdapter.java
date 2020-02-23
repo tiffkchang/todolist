@@ -41,7 +41,7 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         CheckBox completed = (CheckBox) convertView.findViewById(R.id.completed);
 
         tName.setText(taskName);
-        eTaskLength.setText(estimatedTaskLength);
+        eTaskLength.setText(Integer.toString(estimatedTaskLength));
         completed.setActivated(false);
 
         return convertView;
