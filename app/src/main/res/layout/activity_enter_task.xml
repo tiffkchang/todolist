@@ -35,7 +35,6 @@
         android:maxLines="1"
         android:singleLine="true"
         android:maxLength="5"
-        android:inputType="time"
         android:hint="Estimated length of task"/>
 
 <!--    <DatePicker

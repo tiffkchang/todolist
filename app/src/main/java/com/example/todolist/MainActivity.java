@@ -11,12 +11,14 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -42,9 +44,18 @@ public class MainActivity extends AppCompatActivity {
 
         Intent main_intent = getIntent();
 
-        todo_list = (ListView) findViewById(R.id.todo_list);
-        items = new ArrayList<String>();
-        items_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+//        EditText et = findViewById(R.id.estimated_task_length);
+//        et.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+//        todo_list = (ListView) findViewById(R.id.todo_list);
+//        items = new ArrayList<String>();
+//        items_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+
+//        ArrayList<Task> tasks = new ArrayList<>();
+//        tasks.add(new Task("first task", 30));
+//
+//        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
+//        todo_list.setAdapter(adapt);
 
 //        todo_list.setAdapter(items_adapter);
 
@@ -91,25 +102,33 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int rq, int rc, Intent data) {
-        System.out.print("HERE");
+        Log.d("ADDTASK", "HERE");
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
 
         String task_name = prefs.getString("task_name", "no name");
-        String estimated_task_length = prefs.getString("estimated_task_length", "no length");
+        int estimated_task_length = prefs.getInt("estimated_task_length", 0);
 
         Log.d("RESULT","TASK NAME: " + task_name);
 
-        List<HashMap<String, String>> listItems = new ArrayList<>();
-        SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.list_item, new String[] {"First line", "Second line"}, new int[] {R.id.text1, R.id.text2});
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Task(task_name, estimated_task_length));
 
+        todo_list = (ListView) findViewById(R.id.todo_list);
 
-        if (task_name != null && estimated_task_length != null) {
-            HashMap<String, String> resultsMap = new HashMap<>();
-            resultsMap.put("First line", task_name);
-            resultsMap.put("Second line", estimated_task_length);
-            listItems.add(resultsMap);
-        }
-        todo_list.setAdapter(adapter);
+        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
+        todo_list.setAdapter(adapt);
+
+//        List<HashMap<String, String>> listItems = new ArrayList<>();
+//        ArrayAdapter<HashMap<String, String>> adapter = new ArrayAdapter(this, R.layout.list_item, R.id.text1, listItems);
+//
+//
+//        if (task_name != null && estimated_task_length != null) {
+//            HashMap<String, String> resultsMap = new HashMap<>();
+//            resultsMap.put("First line", task_name);
+//            resultsMap.put("Second line", estimated_task_length);
+//            listItems.add(resultsMap);
+//        }
+//        todo_list.setAdapter(adapter);
 
 //        if (task_name != null) {
 //            items_adapter.add(task_name);
