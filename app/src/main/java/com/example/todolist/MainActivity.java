@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> items;
     private ArrayAdapter<String> items_adapter;
     private ArrayList<Task> tasks;
+    private TinyDB tinyDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent main_intent = getIntent();
+        tinyDB = new TinyDB(this);
 
 //        EditText et = findViewById(R.id.estimated_task_length);
 //        et.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -84,7 +86,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
+        ArrayList<Object> archive = tinyDB.getListObject("tasks", Task.class);
         tasks = new ArrayList<>();
+        if (archive != null) {
+            for (int i = 0; i < archive.size(); i++) {
+                if (archive.get(i) instanceof Task) {
+                    tasks.add((Task) archive.get(i));
+                } else {
+                    Log.d("problem", "uh oh");
+                }
+            }
+        }
         todo_list = (RecyclerView) findViewById(R.id.todo_list);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -95,6 +107,16 @@ public class MainActivity extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapt));
         itemTouchHelper.attachToRecyclerView(todo_list);
+    }
+
+    @Override
+    protected void onStop() {
+        ArrayList<Object> archive = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            archive.add(tasks.get(i));
+        }
+        tinyDB.putListObject("tasks", archive);
+        super.onStop();
     }
 
     @Override
