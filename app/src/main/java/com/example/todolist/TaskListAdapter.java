@@ -58,9 +58,17 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
         String eTaskLengthString = "";
 
         if (estimatedHours == 1) {
-            eTaskLengthString = Integer.toString(estimatedHours) + " hour " + Integer.toString(estimatedMinutes) + " minutes";
+            if (estimatedMinutes == 1) {
+                eTaskLengthString = Integer.toString(estimatedHours) + " hour " + Integer.toString(estimatedMinutes) + " minute remaining";
+            } else {
+                eTaskLengthString = Integer.toString(estimatedHours) + " hour " + Integer.toString(estimatedMinutes) + " minutes remaining";
+            }
         } else {
-            eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minutes";
+            if (estimatedMinutes == 1) {
+                eTaskLengthString = Integer.toString(estimatedHours) + " hours" + Integer.toString(estimatedMinutes) + " minute remaining";
+            } else {
+                eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minutes remaining";
+            }
         }
 
         tName.setText(taskName);
@@ -73,6 +81,17 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
     public void deleteTask(int position) {
         todo_list.remove(position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(position,todo_list.size());
+
     }
+
+    public void deleteAllTasks() {
+        for (int i = todo_list.size() - 1; i >= 0; i--) {
+            todo_list.remove(i);
+            notifyItemRemoved(i);
+            notifyItemRangeChanged(i,todo_list.size());
+        }
+    }
+
 
 }

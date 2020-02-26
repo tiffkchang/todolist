@@ -33,56 +33,60 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerView todo_list;
-    private ArrayList<String> items;
-    private ArrayAdapter<String> items_adapter;
+//    private ArrayList<String> items;
+//    private ArrayAdapter<String> items_adapter;
     private ArrayList<Task> tasks;
     private TinyDB tinyDB;
+    private static boolean hasOnCreateRunYet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if (!hasOnCreateRunYet) {
+            hasOnCreateRunYet = true;
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-        Intent main_intent = getIntent();
-        tinyDB = new TinyDB(this);
+            //        Intent main_intent = getIntent();
+            tinyDB = new TinyDB(this);
 
-//        EditText et = findViewById(R.id.estimated_task_length);
-//        et.setInputType(InputType.TYPE_CLASS_NUMBER);
+            //        EditText et = findViewById(R.id.estimated_task_length);
+            //        et.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-//        todo_list = (ListView) findViewById(R.id.todo_list);
-//        items = new ArrayList<String>();
-//        items_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+            //        todo_list = (ListView) findViewById(R.id.todo_list);
+            //        items = new ArrayList<String>();
+            //        items_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
-//        ArrayList<Task> tasks = new ArrayList<>();
-//        tasks.add(new Task("first task", 30));
-//
-//        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
-//        todo_list.setAdapter(adapt);
+            //        ArrayList<Task> tasks = new ArrayList<>();
+            //        tasks.add(new Task("first task", 30));
+            //
+            //        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
+            //        todo_list.setAdapter(adapt);
 
-//        todo_list.setAdapter(items_adapter);
+            //        todo_list.setAdapter(items_adapter);
 
 
+            //        TextView display_task_name = findViewById(R.id.display_task_name);
+            //        TextView display_estimated_task_length = findViewById(R.id.display_estimated_task_length);
+            //        display_task_name.setText(getTaskName(this));
+            //
+            //        display_task_name.setText(main_intent.getStringExtra("task_name"));
+            //        display_estimated_task_length.setText(main_intent.getStringExtra("estimated_task_length"));
 
-//        TextView display_task_name = findViewById(R.id.display_task_name);
-//        TextView display_estimated_task_length = findViewById(R.id.display_estimated_task_length);
-//        display_task_name.setText(getTaskName(this));
-//
-//        display_task_name.setText(main_intent.getStringExtra("task_name"));
-//        display_estimated_task_length.setText(main_intent.getStringExtra("estimated_task_length"));
+            FloatingActionButton add_task = findViewById(R.id.new_task);
+            add_task.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    enterTask();
+                }
+            });
 
-        FloatingActionButton add_task = findViewById(R.id.new_task);
-        add_task.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                enterTask();
-            }
-        });
-
-        setUpRecyclerView();
+            setUpRecyclerView();
+        }
     }
 
     private void setUpRecyclerView() {
@@ -139,22 +143,29 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.clear) {
+            for (int i = tasks.size() - 1; i >= 0; i--) {
+                tasks.remove(i);
+            }
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onActivityResult(int rq, int rc, Intent data) {
-        Log.d("ADDTASK", "HERE");
+        Log.d("ADDTASK", "Adding task");
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
 
         String task_name = prefs.getString("task_name", "no name");
-        int estimated_hours = prefs.getInt("estimated_hours", 0);
-        int estimated_minutes = prefs.getInt("estimated_minutes", 0);
+        int estimated_hours = prefs.getInt("estimated_hours", -1);
+        int estimated_minutes = prefs.getInt("estimated_minutes", -1);
 
         Log.d("RESULT","TASK NAME: " + task_name);
 
-
-        tasks.add(new Task(task_name, estimated_hours, estimated_minutes));
+        if (estimated_hours != -1 || estimated_minutes != -1) {
+            tasks.add(new Task(task_name, estimated_hours, estimated_minutes));
+        }
 
 
 //        List<HashMap<String, String>> listItems = new ArrayList<>();
