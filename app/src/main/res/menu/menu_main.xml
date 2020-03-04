@@ -13,4 +13,10 @@
         android:orderInCategory="101"
         android:title="Clear Tasks"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/work_on_task"
+        android:orderInCategory="102"
+        android:title="Work on Task"
+        app:showAsAction="never"/>
 </menu>

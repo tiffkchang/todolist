@@ -149,6 +149,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        if (id == R.id.work_on_task) {
+            enterWorkOnTask();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -199,6 +203,17 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("START", "START ACTIVITY");
         startActivityForResult(intent, 0);
+    }
+
+    public void enterWorkOnTask() {
+        Intent intent = new Intent(this, workOnTask.class);
+
+        Log.d("enterWorkOnTask", "enterWorkOnTask() called");
+        startActivityForResult(intent, 1);
+    }
+
+    public RecyclerView getTodo_list() {
+        return todo_list;
     }
 
 

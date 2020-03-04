@@ -19,8 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class enterTask extends AppCompatActivity {
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class enterTask extends AppCompatActivity {
                 //String task_name_value = task_name.getText().toString();
                 //setTaskName(getApplicationContext(), task_name_value);
                 backToHome();
+                finish();
             }
         });
     }
@@ -75,16 +76,10 @@ public class enterTask extends AppCompatActivity {
             Toast.makeText(this,"Please populate all fields", Toast.LENGTH_SHORT).show();
             return;
         }
-/*        DateFormat formatter = new SimpleDateFormat("hh:mm:ss a");
-        try {
-            Date date = formatter.parse(estimated_task_length_value);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
 
         int estimated_minutes_checked = Integer.parseInt(estimated_minutes_value);
         if (estimated_minutes_checked > 59) {
-            Toast.makeText(this, "Please enter a value less than 60", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a minutes value less than 60", Toast.LENGTH_SHORT).show();
             return;
         }
 
