@@ -65,7 +65,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
             }
         } else {
             if (estimatedMinutes == 1) {
-                eTaskLengthString = Integer.toString(estimatedHours) + " hours" + Integer.toString(estimatedMinutes) + " minute remaining";
+                eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minute remaining";
             } else {
                 eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minutes remaining";
             }

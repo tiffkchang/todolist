@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView todo_list;
 //    private ArrayList<String> items;
 //    private ArrayAdapter<String> items_adapter;
-    private ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
     private TinyDB tinyDB;
     private static boolean hasOnCreateRunYet = false;
 
@@ -214,6 +214,10 @@ public class MainActivity extends AppCompatActivity {
 
     public RecyclerView getTodo_list() {
         return todo_list;
+    }
+
+    public static ArrayList<Task> getTasks () {
+        return tasks;
     }
 
 

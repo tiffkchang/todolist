@@ -3,15 +3,19 @@ package com.example.todolist;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class workOnTask extends AppCompatActivity {
     private Chronometer chronometer;
     private long pauseOffset;
     private boolean running;
+    private ArrayList<Task> tasksToBeListed;
 
 
     @Override
@@ -19,10 +23,15 @@ public class workOnTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_on_task);
 
-        Spinner taskBeingWorkedOn = findViewById(R.id.task_being_worked_on);
+        Spinner tasksBeingWorkedOn = findViewById(R.id.task_being_worked_on);
 
         chronometer = findViewById(R.id.chronometer);
 //        chronometer.setFormat("You've been working for: %s");
+        tasksToBeListed = MainActivity.getTasks();
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, tasksToBeListed);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        tasksBeingWorkedOn.setAdapter(adapter);
 
     }
 
