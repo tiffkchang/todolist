@@ -112,6 +112,12 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
             tSpentOnTask.setText(timeSpentOnTaskString + " spent working on " + taskName);
         }
 
+            if (getItem(position).isCompleted()) {
+                completed.setActivated(true);
+            } else {
+                completed.setActivated(false);
+            }
+
 //        if (timeSpentOnTask == 0) {
 //            tSpentOnTask.setText("Haven't started");
 //        } else {

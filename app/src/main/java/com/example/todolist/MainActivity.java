@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private static ArrayList<Task> tasks;
     private TinyDB tinyDB;
     private static boolean hasOnCreateRunYet = false;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+
+            prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
+            editor = prefs.edit();
 
             //        Intent main_intent = getIntent();
             tinyDB = new TinyDB(this);
@@ -159,9 +165,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int rq, int rc, Intent data) {
         Log.d("ADDTASK", "Adding task");
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
+//        prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
 
         String task_name = prefs.getString("task_name", "no name");
+        boolean completed = prefs.getBoolean("completed", false);
         int estimated_hours = prefs.getInt("estimated_hours", -1);
         int estimated_minutes = prefs.getInt("estimated_minutes", -1);
         long actual_time_spent = prefs.getLong("actual_time_spent", -1);
@@ -220,6 +227,14 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Task> getTasks () {
         return tasks;
     }
+
+//    public void itemClicked(View v) {
+//        //code to check if this checkbox is checked!
+//        CheckBox checkBox = (CheckBox)v;
+//        if(checkBox.isChecked()){
+//
+//        }
+//    }
 
 
 
