@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +47,6 @@ public class enterTask extends AppCompatActivity {
                 //String task_name_value = task_name.getText().toString();
                 //setTaskName(getApplicationContext(), task_name_value);
                 backToHome();
-                finish();
             }
         });
     }
@@ -86,7 +86,15 @@ public class enterTask extends AppCompatActivity {
         editor.putString("task_name", task_name_value);
         editor.putInt("estimated_hours", Integer.parseInt(estimated_hours_value));
         editor.putInt("estimated_minutes", estimated_minutes_checked);
+        editor.putLong("actual_time_spent", 0);
         editor.apply();
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//                finish();
+//            }
+//        }, 1000);
 
         finish();
 

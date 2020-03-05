@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.daimajia.swipe.adapters.ArraySwipeAdapter;
 
@@ -50,29 +52,71 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
         String taskName = getItem(position).getTaskName();
         int estimatedHours = getItem(position).getEstimatedHours();
         int estimatedMinutes = getItem(position).getEstimatedMinutes();
+        long timeSpentOnTask = getItem(position).getActualTaskLength();
 
         TextView tName = (TextView) holder.view.findViewById(R.id.text1);
         TextView eTaskLength = (TextView) holder.view.findViewById(R.id.text2);
+        TextView tSpentOnTask = (TextView) holder.view.findViewById(R.id.text3);
         CheckBox completed = (CheckBox) holder.view.findViewById(R.id.completed);
 
         String eTaskLengthString = "";
 
         if (estimatedHours == 1) {
             if (estimatedMinutes == 1) {
-                eTaskLengthString = Integer.toString(estimatedHours) + " hour " + Integer.toString(estimatedMinutes) + " minute remaining";
+                eTaskLengthString = "Estimated: " + Integer.toString(estimatedHours) + " hour " + Integer.toString(estimatedMinutes) + " minute";
             } else {
-                eTaskLengthString = Integer.toString(estimatedHours) + " hour " + Integer.toString(estimatedMinutes) + " minutes remaining";
+                eTaskLengthString = "Estimated: " + Integer.toString(estimatedHours) + " hour " + Integer.toString(estimatedMinutes) + " minutes";
             }
         } else {
             if (estimatedMinutes == 1) {
-                eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minute remaining";
+                eTaskLengthString = "Estimated: " + Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minute";
             } else {
-                eTaskLengthString = Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minutes remaining";
+                eTaskLengthString = "Estimated: " + Integer.toString(estimatedHours) + " hours " + Integer.toString(estimatedMinutes) + " minutes";
             }
         }
 
         tName.setText(taskName);
         eTaskLength.setText(eTaskLengthString);
+
+        String timeSpentOnTaskString = "";
+        if (timeSpentOnTask == 0) {
+            tSpentOnTask.setText("Haven't started");
+        } else {
+            if (timeSpentOnTask >= 86400000) {
+                timeSpentOnTaskString+= Long.toString(timeSpentOnTask / 86400000) + " day(s) ";
+                timeSpentOnTask = timeSpentOnTask % 86400000;
+            }
+            if (timeSpentOnTask >= 7200000) {
+                timeSpentOnTaskString += Long.toString(timeSpentOnTask / 3600000) + " hours ";
+                timeSpentOnTask = timeSpentOnTask % 3600000;
+            }
+            if (timeSpentOnTask >= 3600000) {
+                timeSpentOnTaskString += Long.toString(timeSpentOnTask / 3600000) + " hour ";
+                timeSpentOnTask = timeSpentOnTask % 3600000;
+            }
+            if (timeSpentOnTask >= 120000) {
+                timeSpentOnTaskString += Long.toString(timeSpentOnTask / 60000) + " minutes ";
+                timeSpentOnTask = timeSpentOnTask % 60000;
+            }
+            if (timeSpentOnTask >= 60000) {
+                timeSpentOnTaskString += Long.toString(timeSpentOnTask / 60000) + " minute ";
+                timeSpentOnTask = timeSpentOnTask % 60000;
+            }
+            if (timeSpentOnTask >= 2000) {
+                timeSpentOnTaskString += Long.toString(timeSpentOnTask / 1000) + " seconds";
+                timeSpentOnTask = 0;
+            }
+            if (timeSpentOnTask >= 1000) {
+                timeSpentOnTaskString += Long.toString(timeSpentOnTask / 1000) + " second";
+            }
+            tSpentOnTask.setText(timeSpentOnTaskString + " spent working on " + taskName);
+        }
+
+//        if (timeSpentOnTask == 0) {
+//            tSpentOnTask.setText("Haven't started");
+//        } else {
+//            tSpentOnTask.setText("You've spent: " + Long.toString(timeSpentOnTask/1000) + " seconds working on " + taskName);
+//        }
         completed.setActivated(false);
     }
 

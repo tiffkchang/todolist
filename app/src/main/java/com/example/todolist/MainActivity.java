@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         String task_name = prefs.getString("task_name", "no name");
         int estimated_hours = prefs.getInt("estimated_hours", -1);
         int estimated_minutes = prefs.getInt("estimated_minutes", -1);
+        long actual_time_spent = prefs.getLong("actual_time_spent", -1);
 
         Log.d("RESULT","TASK NAME: " + task_name);
 

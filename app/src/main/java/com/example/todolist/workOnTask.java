@@ -1,7 +1,9 @@
 package com.example.todolist;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
@@ -16,6 +18,9 @@ public class workOnTask extends AppCompatActivity {
     private long pauseOffset;
     private boolean running;
     private ArrayList<Task> tasksToBeListed;
+    private Spinner tasksBeingWorkedOn;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -23,12 +28,15 @@ public class workOnTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_on_task);
 
-        Spinner tasksBeingWorkedOn = findViewById(R.id.task_being_worked_on);
+        prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
+        editor = prefs.edit();
+
+        tasksBeingWorkedOn = findViewById(R.id.task_being_worked_on);
 
         chronometer = findViewById(R.id.chronometer);
 //        chronometer.setFormat("You've been working for: %s");
         tasksToBeListed = MainActivity.getTasks();
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, tasksToBeListed);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_item, tasksToBeListed);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         tasksBeingWorkedOn.setAdapter(adapter);
@@ -56,9 +64,19 @@ public class workOnTask extends AppCompatActivity {
         pauseOffset = 0;
     }
 
-    public long finishTask(View v) {
+    public void finishTask(View v) {
+        int task_pos = tasksBeingWorkedOn.getSelectedItemPosition();
+        tasksToBeListed.get(task_pos).setActualTaskLength(pauseOffset);
         onBackPressed();
-        return pauseOffset;
+    }
+
+    public void onBackPressed() {
+        Log.d("back 2", "back button pressed in workOnTask");
+        editor.remove("task_name");
+        editor.remove("estimated_hours");
+        editor.remove("estimated_minutes");
+        editor.apply();
+        super.onBackPressed();
     }
 
 }

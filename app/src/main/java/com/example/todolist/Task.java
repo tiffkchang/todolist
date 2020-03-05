@@ -5,7 +5,7 @@ public class Task {
 //    private int estimatedTaskLength; //in seconds
     private int estimatedHours = 0;
     private int estimatedMinutes = 0;
-    private int actualTaskLength = 0; //in seconds
+    private long actualTaskLength = 0; //in seconds
     private boolean completed = false;
 
     public Task(String taskName, int estimatedHours, int estimatedMinutes) {
@@ -36,12 +36,12 @@ public class Task {
         return estimatedMinutes;
     }
 
-    public int getActualTaskLength() {
+    public long getActualTaskLength() {
         return actualTaskLength;
     }
 
-    public void setActualTaskLength(int actualTaskLength) {
-        this.actualTaskLength = actualTaskLength;
+    public void setActualTaskLength(long actualTaskLength) {
+        this.actualTaskLength = this.actualTaskLength + actualTaskLength;
     }
 
     public boolean isCompleted() {
