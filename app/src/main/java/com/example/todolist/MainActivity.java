@@ -120,14 +120,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
 //        CheckBox completed = findViewById(R.id.completed);
         ArrayList<Object> archive = new ArrayList<>();
-//        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
 //            if (completed.isChecked()) {
 //                tasks.get(i).setCompleted(true);
 //            } else {
 //                tasks.get(i).setCompleted(false);
 //            }
-//            archive.add(tasks.get(i));
-//        }
+            archive.add(tasks.get(i));
+        }
         tinyDB.putListObject("tasks", archive);
         super.onStop();
     }
