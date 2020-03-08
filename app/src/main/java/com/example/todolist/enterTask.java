@@ -17,11 +17,13 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class enterTask extends AppCompatActivity {
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
+    private ArrayList<Task> tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class enterTask extends AppCompatActivity {
 
         prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
         editor = prefs.edit();
+        tasks = MainActivity.getTasks();
 
 //        EditText task_name = (EditText) findViewById(R.id.task_name);
 //        String task_name_value = task_name.getText().toString();
@@ -83,7 +86,10 @@ public class enterTask extends AppCompatActivity {
             return;
         }
 
+//        tasks.add(new Task(task_name_value, Integer.parseInt(estimated_hours_value), estimated_minutes_checked));
+
         editor.putString("task_name", task_name_value);
+        editor.putBoolean("completed", false);
         editor.putInt("estimated_hours", Integer.parseInt(estimated_hours_value));
         editor.putInt("estimated_minutes", estimated_minutes_checked);
         editor.putLong("actual_time_spent", 0);
@@ -103,8 +109,10 @@ public class enterTask extends AppCompatActivity {
     public void onBackPressed() {
         Log.d("back", "back button pressed");
         editor.remove("task_name");
+        editor.remove("completed");
         editor.remove("estimated_hours");
         editor.remove("estimated_minutes");
+        editor.remove("actual_time_spent");
         editor.apply();
         super.onBackPressed();
     }

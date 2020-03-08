@@ -21,6 +21,7 @@ public class workOnTask extends AppCompatActivity {
     private Spinner tasksBeingWorkedOn;
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
+    private static TaskListAdapter adapt;
 
 
     @Override
@@ -30,6 +31,7 @@ public class workOnTask extends AppCompatActivity {
 
         prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
         editor = prefs.edit();
+        adapt = MainActivity.getAdapt();
 
         tasksBeingWorkedOn = findViewById(R.id.task_being_worked_on);
 
@@ -67,6 +69,7 @@ public class workOnTask extends AppCompatActivity {
     public void finishTask(View v) {
         int task_pos = tasksBeingWorkedOn.getSelectedItemPosition();
         tasksToBeListed.get(task_pos).setActualTaskLength(pauseOffset);
+        adapt.notifyDataSetChanged();
         onBackPressed();
     }
 

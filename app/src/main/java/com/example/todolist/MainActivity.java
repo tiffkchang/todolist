@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private TinyDB tinyDB;
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
+    private static TaskListAdapter adapt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         todo_list.setLayoutManager(layoutManager);
 
-        TaskListAdapter adapt = new TaskListAdapter(this, tasks);
+        adapt = new TaskListAdapter(this, tasks);
         todo_list.setAdapter(adapt);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapt));
@@ -177,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (estimated_hours != -1 || estimated_minutes != -1) {
             tasks.add(new Task(task_name, estimated_hours, estimated_minutes));
+            adapt.notifyDataSetChanged();
         }
 
 
@@ -226,6 +228,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<Task> getTasks () {
         return tasks;
+    }
+
+    public static TaskListAdapter getAdapt() {
+        return adapt;
     }
 
 //    public void itemClicked(View v) {

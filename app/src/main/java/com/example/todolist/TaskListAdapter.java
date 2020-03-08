@@ -114,8 +114,10 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
 
             if (getItem(position).isCompleted()) {
                 completed.setActivated(true);
+                getItem(position).setCompleted(true);
             } else {
                 completed.setActivated(false);
+                getItem(position).setCompleted(false);
             }
 
 //        if (timeSpentOnTask == 0) {
@@ -123,7 +125,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
 //        } else {
 //            tSpentOnTask.setText("You've spent: " + Long.toString(timeSpentOnTask/1000) + " seconds working on " + taskName);
 //        }
-        completed.setActivated(false);
+//        completed.setActivated(false);
     }
 
     public int getItemCount() { return todo_list.size(); }
