@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -41,58 +42,54 @@ public class MainActivity extends AppCompatActivity {
 //    private ArrayAdapter<String> items_adapter;
     private static ArrayList<Task> tasks;
     private TinyDB tinyDB;
-    private static boolean hasOnCreateRunYet = false;
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (!hasOnCreateRunYet) {
-            hasOnCreateRunYet = true;
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
-            editor = prefs.edit();
+        prefs = getApplicationContext().getSharedPreferences("myAppPackage", 0);
+        editor = prefs.edit();
 
-            //        Intent main_intent = getIntent();
-            tinyDB = new TinyDB(this);
+        //        Intent main_intent = getIntent();
+        tinyDB = new TinyDB(this);
 
-            //        EditText et = findViewById(R.id.estimated_task_length);
-            //        et.setInputType(InputType.TYPE_CLASS_NUMBER);
+        //        EditText et = findViewById(R.id.estimated_task_length);
+        //        et.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-            //        todo_list = (ListView) findViewById(R.id.todo_list);
-            //        items = new ArrayList<String>();
-            //        items_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        //        todo_list = (ListView) findViewById(R.id.todo_list);
+        //        items = new ArrayList<String>();
+        //        items_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
-            //        ArrayList<Task> tasks = new ArrayList<>();
-            //        tasks.add(new Task("first task", 30));
-            //
-            //        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
-            //        todo_list.setAdapter(adapt);
+        //        ArrayList<Task> tasks = new ArrayList<>();
+        //        tasks.add(new Task("first task", 30));
+        //
+        //        TaskListAdapter adapt = new TaskListAdapter(this, R.layout.list_item, tasks);
+        //        todo_list.setAdapter(adapt);
 
-            //        todo_list.setAdapter(items_adapter);
+        //        todo_list.setAdapter(items_adapter);
 
 
-            //        TextView display_task_name = findViewById(R.id.display_task_name);
-            //        TextView display_estimated_task_length = findViewById(R.id.display_estimated_task_length);
-            //        display_task_name.setText(getTaskName(this));
-            //
-            //        display_task_name.setText(main_intent.getStringExtra("task_name"));
-            //        display_estimated_task_length.setText(main_intent.getStringExtra("estimated_task_length"));
+        //        TextView display_task_name = findViewById(R.id.display_task_name);
+        //        TextView display_estimated_task_length = findViewById(R.id.display_estimated_task_length);
+        //        display_task_name.setText(getTaskName(this));
+        //
+        //        display_task_name.setText(main_intent.getStringExtra("task_name"));
+        //        display_estimated_task_length.setText(main_intent.getStringExtra("estimated_task_length"));
 
-            FloatingActionButton add_task = findViewById(R.id.new_task);
-            add_task.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    enterTask();
-                }
-            });
+        FloatingActionButton add_task = findViewById(R.id.new_task);
+        add_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                enterTask();
+            }
+        });
 
-            setUpRecyclerView();
-        }
+        setUpRecyclerView();
     }
 
     private void setUpRecyclerView() {
@@ -121,10 +118,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+//        CheckBox completed = findViewById(R.id.completed);
         ArrayList<Object> archive = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            archive.add(tasks.get(i));
-        }
+//        for (int i = 0; i < tasks.size(); i++) {
+//            if (completed.isChecked()) {
+//                tasks.get(i).setCompleted(true);
+//            } else {
+//                tasks.get(i).setCompleted(false);
+//            }
+//            archive.add(tasks.get(i));
+//        }
         tinyDB.putListObject("tasks", archive);
         super.onStop();
     }
@@ -145,9 +148,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         if (id == R.id.clear) {
             for (int i = tasks.size() - 1; i >= 0; i--) {
