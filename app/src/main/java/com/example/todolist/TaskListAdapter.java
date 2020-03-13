@@ -48,16 +48,26 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskLi
 
     public Task getItem(int position) { return todo_list.get(position); }
 
-    public void onBindViewHolder(TaskListViewHolder holder, int position) {
+    public void onBindViewHolder(TaskListViewHolder holder, final int position) {
         String taskName = getItem(position).getTaskName();
         int estimatedHours = getItem(position).getEstimatedHours();
         int estimatedMinutes = getItem(position).getEstimatedMinutes();
         long timeSpentOnTask = getItem(position).getActualTaskLength();
+        boolean isCompleted = getItem(position).isCompleted();
 
         TextView tName = (TextView) holder.view.findViewById(R.id.text1);
         TextView eTaskLength = (TextView) holder.view.findViewById(R.id.text2);
         TextView tSpentOnTask = (TextView) holder.view.findViewById(R.id.text3);
         CheckBox completed = (CheckBox) holder.view.findViewById(R.id.completed);
+
+        completed.setChecked(isCompleted);
+        completed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox c = (CheckBox) v;
+                getItem(position).setCompleted(c.isChecked());
+            }
+        });
 
         String eTaskLengthString = "";
 

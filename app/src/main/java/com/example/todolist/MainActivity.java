@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i = tasks.size() - 1; i >= 0; i--) {
                 tasks.remove(i);
             }
+            adapt.notifyDataSetChanged();
         }
 
         if (id == R.id.work_on_task) {
